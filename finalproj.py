@@ -32,14 +32,17 @@ while True:
         # sound_value = analogRead(sound_sensor)
         # print(light_value, 'light units,', sound_value, 'sound units')
         # time.sleep(1)
-        print(potentiometer)
-        print(analogRead(potentiometer))
-        sensor_value = analogRead(potentiometer)
-        voltage = round((float)(sensor_value) * adc_ref / 1023, 2)
-        degrees = round((voltage * full_angle) / grove_vcc, 2)
-        print(voltage, degrees)
-        print(round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2), round((round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2) * full_angle) / grove_vcc, 2))
-        time.sleep(1)
+        read = analogRead(potentiometer)
+        if(read != 65536):
+            print(read)
+        # print(potentiometer)
+        # print(analogRead(potentiometer))
+        # sensor_value = analogRead(potentiometer)
+        # voltage = round((float)(sensor_value) * adc_ref / 1023, 2)
+        # degrees = round((voltage * full_angle) / grove_vcc, 2)
+        # print(voltage, degrees)
+        # print(round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2), round((round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2) * full_angle) / grove_vcc, 2))
+        # time.sleep(1)
 
     except Error:
         pass
