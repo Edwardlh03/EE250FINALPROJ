@@ -7,6 +7,8 @@ potentiometer = 2
 light_sensor = 1
 sound_sensor = 0
 pinMode(light_sensor,"INPUT")
+pinMode(potentiometer, "INPUT")
+pinMode(sound_sensor, "INPUT")
 
 grove_vcc = 5
 adc_ref = 5
