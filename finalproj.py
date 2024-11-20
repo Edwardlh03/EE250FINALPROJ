@@ -8,7 +8,7 @@ sound_sensor = 0
 pinMode(light_sensor,"INPUT")
 while True:
     try:
-        [temp, hum] = dht(7,0)
+        [temp, hum] = dht(4,0)
         time.sleep(0.05)
         if math.isnan(temp) == False and math.isnan(hum) == False:
             print("temp =", temp, "C\thumidity =", hum,"%")
