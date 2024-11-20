@@ -11,6 +11,7 @@ while True:
         print("temp =", temp, "C\thumidity =", hum,"%")
         # Read distance value from Ultrasonic
         dist = ultrasonicRead(ultrasonic_ranger)
+        print(ultrasonicRead(0), ultrasonicRead(1), ultrasonicRead(2), ultrasonicRead(3), ultrasonicRead(4), ultrasonicRead(5), ultrasonicRead(6), ultrasonicRead(7))
         print(dist,'cm')
         # Get sensor value.  Read the light sensor.
         light_value = analogRead(light_sensor)
