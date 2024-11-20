@@ -36,7 +36,7 @@ while True:
         voltage = round((float)(sensor_value) * adc_ref / 1023, 2)
         degrees = round((voltage * full_angle) / grove_vcc, 2)
         print(voltage, degrees)
-        print(round(round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2), (round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2) * full_angle) / grove_vcc, 2))
+        print(round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2), round((round((float)(analogRead(potentiometer)) * adc_ref / 1023, 2) * full_angle) / grove_vcc, 2))
         time.sleep(1)
 
     except Error:
