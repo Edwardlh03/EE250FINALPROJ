@@ -33,7 +33,7 @@ while True:
         # print(light_value, 'light units,', sound_value, 'sound units')
         # time.sleep(1)
         read = analogRead(potentiometer)
-        if(read != 65536):
+        if(read != 65535):
             print(read)
         # print(potentiometer)
         # print(analogRead(potentiometer))
