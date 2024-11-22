@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 import time
 
 snake_speed = 15
-
+inp = "soundsensor"
 # Window size
 window_x = 720
 window_y = 480
@@ -111,10 +111,8 @@ def on_connect(client, userdata, flags, rc):
 
 #Default message callback. Please use custom callbacks.
 def custom_message(client, userdata, message):
-    if str(message.payload, "utf-8") == "Button pressed!":
-        print("Button pressed!")
-    else:
-        print("VM: " + str(message.payload, "utf-8") + " cm")
+    inp = str(message.payload, "utf-8")
+    changeflag = 1
       
 # Main Function
 if __name__ == '__main__':
@@ -130,16 +128,23 @@ if __name__ == '__main__':
         
       
         # handling key events
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    change_to = 'UP'
-                if event.key == pygame.K_DOWN:
-                    change_to = 'DOWN'
-                if event.key == pygame.K_LEFT:
-                    change_to = 'LEFT'
-                if event.key == pygame.K_RIGHT:
-                    change_to = 'RIGHT'
+
+        
+        if changeflag:
+            if input == "ultrasonicranger":
+              change_to = 'UP'
+            elif input == "rotaryencoder":
+              change_to = 'LEFT'
+            elif input == "lightsensor":
+              change_to = 'DOWN'
+            elif input == "soundsensor":
+              change_to = 'RIGHT'
+            else: 
+               black = pygame.Color(max(int(inp)*4, 255), 0, 0)
+            changeflag = 0
+          
+            
+        
     
         # If two keys pressed simultaneously
         # we don't want snake to move into two 
