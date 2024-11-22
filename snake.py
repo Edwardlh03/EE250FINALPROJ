@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 import time
 
 snake_speed = 15
-inp = "soundsensor"
+input = "soundsensor"
 changeflag = 1
 # Window size
 window_x = 720
@@ -112,7 +112,7 @@ def on_connect(client, userdata, flags, rc):
 
 #Default message callback. Please use custom callbacks.
 def custom_message(client, userdata, message):
-    inp = str(message.payload, "utf-8")
+    input = str(message.payload, "utf-8")
     changeflag = 1
       
 # Main Function
@@ -141,7 +141,7 @@ if __name__ == '__main__':
             elif input == "soundsensor":
               change_to = 'RIGHT'
             else: 
-               black = pygame.Color(max(int(inp)*4, 255), 0, 0)
+               black = pygame.Color(max(int(input)*4, 255), 0, 0)
             changeflag = 0
           
             
