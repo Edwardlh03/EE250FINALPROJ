@@ -3,7 +3,7 @@ import time
 import math
 import paho.mqtt.client as mqtt
 
-dht_sensor_port = 7
+dht_sensor_port = 2
 ultrasonic_ranger = 4
 potentiometer = 2
 light_sensor = 1
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     
     while True:
         try:
-            [temp, hum] = dht(7,0)
+            [temp, hum] = dht(2,0)
             if math.isnan(temp) == False and math.isnan(hum) == False:
                 print("temp =", temp, "C\thumidity =", hum,"%")
                 client.publish("jackmitc/temphum", str(hum))
