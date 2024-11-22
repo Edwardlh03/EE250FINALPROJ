@@ -97,10 +97,28 @@ def game_over():
     # quit the program
     quit()
 
+def on_connect(client, userdata, flags, rc):
+    print("Connected to server (i.e., broker) with result code "+str(rc))
 
+    #subscribe to the ultrasonic ranger topic here
+    client.subscribe("jackmitc/ultrasonicRanger", 2)
+    client.subscribe("jackmitc/button", 2)
+
+#Default message callback. Please use custom callbacks.
+def custom_message(client, userdata, message):
+    if str(message.payload, "utf-8") == "Button pressed!":
+        print("Button pressed!")
+    else:
+        print("VM: " + str(message.payload, "utf-8") + " cm")
 # Main Function
 while True:
-    
+  
+    client = mqtt.Client()
+    client.on_message = custom_message
+    client.on_connect = on_connect
+    client.connect(host="broker.hivemq.com", port=1883, keepalive=60)
+    client.loop_start()
+  
     # handling key events
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
