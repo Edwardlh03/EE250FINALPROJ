@@ -2,6 +2,8 @@
 import pygame
 import time
 import random
+import paho.mqtt.client as mqtt
+import time
 
 snake_speed = 15
 
@@ -67,7 +69,7 @@ def show_score(choice, color, font, size):
     game_window.blit(score_surface, score_rect)
 
 # game over function
-def game_over():
+  def game_over():
   
     # creating font object my_font
     my_font = pygame.font.SysFont('times new roman', 50)
@@ -100,9 +102,12 @@ def game_over():
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
-    #subscribe to the ultrasonic ranger topic here
-    client.subscribe("jackmitc/ultrasonicRanger", 2)
-    client.subscribe("jackmitc/button", 2)
+    #subscribe to the topics here
+    client.subscribe("jackmitc/ultrasonicranger", 2)
+    client.subscribe("jackmitc/rotaryencoder", 2)
+    client.subscribe("jackmitc/lightsensor", 2)
+    client.subscribe("jackmitc/soundsensor", 2)
+    client.subscribe("jackmitc/temphum", 2)
 
 #Default message callback. Please use custom callbacks.
 def custom_message(client, userdata, message):
@@ -110,88 +115,93 @@ def custom_message(client, userdata, message):
         print("Button pressed!")
     else:
         print("VM: " + str(message.payload, "utf-8") + " cm")
+      
 # Main Function
-while True:
-  
+  if __name__ == '__main__':
+  #this section is covered in publisher_and_subscriber_example.py
     client = mqtt.Client()
     client.on_message = custom_message
     client.on_connect = on_connect
     client.connect(host="broker.hivemq.com", port=1883, keepalive=60)
     client.loop_start()
-  
-    # handling key events
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                change_to = 'UP'
-            if event.key == pygame.K_DOWN:
-                change_to = 'DOWN'
-            if event.key == pygame.K_LEFT:
-                change_to = 'LEFT'
-            if event.key == pygame.K_RIGHT:
-                change_to = 'RIGHT'
 
-    # If two keys pressed simultaneously
-    # we don't want snake to move into two 
-    # directions simultaneously
-    if change_to == 'UP' and direction != 'DOWN':
-        direction = 'UP'
-    if change_to == 'DOWN' and direction != 'UP':
-        direction = 'DOWN'
-    if change_to == 'LEFT' and direction != 'RIGHT':
-        direction = 'LEFT'
-    if change_to == 'RIGHT' and direction != 'LEFT':
-        direction = 'RIGHT'
-
-    # Moving the snake
-    if direction == 'UP':
-        snake_position[1] -= 10
-    if direction == 'DOWN':
-        snake_position[1] += 10
-    if direction == 'LEFT':
-        snake_position[0] -= 10
-    if direction == 'RIGHT':
-        snake_position[0] += 10
-
-    # Snake body growing mechanism
-    # if fruits and snakes collide then scores
-    # will be incremented by 10
-    snake_body.insert(0, list(snake_position))
-    if snake_position[0] == fruit_position[0] and snake_position[1] == fruit_position[1]:
-        score += 10
-        fruit_spawn = False
-    else:
-        snake_body.pop()
+    while True:
+      
         
-    if not fruit_spawn:
-        fruit_position = [random.randrange(1, (window_x//10)) * 10, 
-                          random.randrange(1, (window_y//10)) * 10]
-        
-    fruit_spawn = True
-    game_window.fill(black)
+      
+        # handling key events
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    change_to = 'UP'
+                if event.key == pygame.K_DOWN:
+                    change_to = 'DOWN'
+                if event.key == pygame.K_LEFT:
+                    change_to = 'LEFT'
+                if event.key == pygame.K_RIGHT:
+                    change_to = 'RIGHT'
     
-    for pos in snake_body:
-        pygame.draw.rect(game_window, green,
-                         pygame.Rect(pos[0], pos[1], 10, 10))
-    pygame.draw.rect(game_window, white, pygame.Rect(
-        fruit_position[0], fruit_position[1], 10, 10))
-
-    # Game Over conditions
-    if snake_position[0] < 0 or snake_position[0] > window_x-10:
-        game_over()
-    if snake_position[1] < 0 or snake_position[1] > window_y-10:
-        game_over()
-
-    # Touching the snake body
-    for block in snake_body[1:]:
-        if snake_position[0] == block[0] and snake_position[1] == block[1]:
+        # If two keys pressed simultaneously
+        # we don't want snake to move into two 
+        # directions simultaneously
+        if change_to == 'UP' and direction != 'DOWN':
+            direction = 'UP'
+        if change_to == 'DOWN' and direction != 'UP':
+            direction = 'DOWN'
+        if change_to == 'LEFT' and direction != 'RIGHT':
+            direction = 'LEFT'
+        if change_to == 'RIGHT' and direction != 'LEFT':
+            direction = 'RIGHT'
+    
+        # Moving the snake
+        if direction == 'UP':
+            snake_position[1] -= 10
+        if direction == 'DOWN':
+            snake_position[1] += 10
+        if direction == 'LEFT':
+            snake_position[0] -= 10
+        if direction == 'RIGHT':
+            snake_position[0] += 10
+    
+        # Snake body growing mechanism
+        # if fruits and snakes collide then scores
+        # will be incremented by 10
+        snake_body.insert(0, list(snake_position))
+        if snake_position[0] == fruit_position[0] and snake_position[1] == fruit_position[1]:
+            score += 10
+            fruit_spawn = False
+        else:
+            snake_body.pop()
+            
+        if not fruit_spawn:
+            fruit_position = [random.randrange(1, (window_x//10)) * 10, 
+                              random.randrange(1, (window_y//10)) * 10]
+            
+        fruit_spawn = True
+        game_window.fill(black)
+        
+        for pos in snake_body:
+            pygame.draw.rect(game_window, green,
+                             pygame.Rect(pos[0], pos[1], 10, 10))
+        pygame.draw.rect(game_window, white, pygame.Rect(
+            fruit_position[0], fruit_position[1], 10, 10))
+    
+        # Game Over conditions
+        if snake_position[0] < 0 or snake_position[0] > window_x-10:
             game_over()
-
-    # displaying score continuously
-    show_score(1, white, 'times new roman', 20)
-
-    # Refresh game screen
-    pygame.display.update()
-
-    # Frame Per Second /Refresh Rate
-    fps.tick(snake_speed)
+        if snake_position[1] < 0 or snake_position[1] > window_y-10:
+            game_over()
+    
+        # Touching the snake body
+        for block in snake_body[1:]:
+            if snake_position[0] == block[0] and snake_position[1] == block[1]:
+                game_over()
+    
+        # displaying score continuously
+        show_score(1, white, 'times new roman', 20)
+    
+        # Refresh game screen
+        pygame.display.update()
+    
+        # Frame Per Second /Refresh Rate
+        fps.tick(snake_speed)
