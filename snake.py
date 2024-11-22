@@ -144,6 +144,7 @@ if __name__ == '__main__':
             elif input == "soundsensor":
               change_to = 'RIGHT'
             else: 
+               print(input)
                black = pygame.Color(max(int(input)*4, 255), 0, 0)
             changeflag = 0
           
