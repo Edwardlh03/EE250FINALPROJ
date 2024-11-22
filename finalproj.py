@@ -42,7 +42,7 @@ if __name__ == '__main__':
         try:
             [temp, hum] = dht(7,0)
             if math.isnan(temp) == False and math.isnan(hum) == False:
-               # print("temp =", temp, "C\thumidity =", hum,"%")
+                print("temp =", temp, "C\thumidity =", hum,"%")
                 client.publish("jackmitc/temphum", str(hum))
                
             # [temp, hum] = dht(dht_sensor_port,0)
