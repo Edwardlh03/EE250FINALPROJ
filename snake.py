@@ -112,13 +112,14 @@ def on_connect(client, userdata, flags, rc):
 
 #Default message callback. Please use custom callbacks.
 def custom_message(client, userdata, message):
+    global input, changeflag
     input = str(message.payload, "utf-8")
-    print(input)
     changeflag = 1
       
 # Main Function
 if __name__ == '__main__':
   #this section is covered in publisher_and_subscriber_example.py
+    global input, changeflag
     client = mqtt.Client()
     client.on_message = custom_message
     client.on_connect = on_connect
@@ -131,7 +132,7 @@ if __name__ == '__main__':
       
         # handling key events
 
-        print(input)
+        
       
         if changeflag == 1:
             if input == "ultrasonicranger":
