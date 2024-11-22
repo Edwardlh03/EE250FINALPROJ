@@ -42,7 +42,7 @@ if __name__ == '__main__':
         try:
             [temp, hum] = dht(7,0)
             if math.isnan(temp) == False and math.isnan(hum) == False:
-                print("temp =", temp, "C\thumidity =", hum,"%")
+               # print("temp =", temp, "C\thumidity =", hum,"%")
                 client.publish("jackmitc/temphum", str(hum))
                
             # [temp, hum] = dht(dht_sensor_port,0)
@@ -51,7 +51,7 @@ if __name__ == '__main__':
             # # Read distance value from Ultrasonic
             _, _, _, _, dist, _, _, _ = ultrasonicRead(0), ultrasonicRead(1), ultrasonicRead(2), ultrasonicRead(3), ultrasonicRead(4), ultrasonicRead(5), ultrasonicRead(6), ultrasonicRead(7)
             if dist != 65535:
-                print(dist)
+               # print(dist)
             if dist < 20: #0-200
                 client.publish("jackmitc/ultrasonicranger", "ultrasonicranger")
             
@@ -64,12 +64,12 @@ if __name__ == '__main__':
                 client.publish("jackmitc/lightsensor", "lightsensor")
             if sound_value < 300: #ambient is around 70 or 100, tap goes up to 800
                 client.publish("jackmitc/soundsensor", "soundsensor")
-            print(light_value, 'light units,', sound_value, 'sound units')
+           # print(light_value, 'light units,', sound_value, 'sound units')
     
             # time.sleep(1)
             potentval = analogRead(potentiometer)
             if(potentval != 65535):
-                print(potentval)
+               # print(potentval)
             
                 if potentval != prevpotentval : # checking for any changes in potentval
                     prevpotenval = potentval
