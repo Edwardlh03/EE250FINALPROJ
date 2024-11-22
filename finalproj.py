@@ -36,6 +36,8 @@ if __name__ == '__main__':
     client.connect(host="broker.hivemq.com", port=1883, keepalive=60)
     client.loop_start()
     
+    prevpotentval = analogRead(potentiometer)
+    
     while True:
         try:
             [temp, hum] = dht(7,0)
@@ -48,7 +50,7 @@ if __name__ == '__main__':
             _, _, _, _, dist, _, _, _ = ultrasonicRead(0), ultrasonicRead(1), ultrasonicRead(2), ultrasonicRead(3), ultrasonicRead(4), ultrasonicRead(5), ultrasonicRead(6), ultrasonicRead(7)
             if dist != 65535:
                 print(dist)
-            if dist < 50:
+            if dist < 20: #0-200
                 client.publish("jackmitc/ultrasonicranger", "1")
             
             # print(ultrasonicRead(0), ultrasonicRead(1), ultrasonicRead(2), ultrasonicRead(3), ultrasonicRead(4), ultrasonicRead(5), ultrasonicRead(6), ultrasonicRead(7))
@@ -56,9 +58,9 @@ if __name__ == '__main__':
             # # Get sensor value.  Read the light sensor.
             light_value = analogRead(light_sensor)
             sound_value = analogRead(sound_sensor)
-            if light_value < 50:
+            if light_value < 200: #around 600 when facing up, a finger on top puts it at ~80
                 client.publish("jackmitc/lightsensor", "1")
-            if sound_value < 50:
+            if sound_value < 300: #ambient is around 70 or 100, tap goes up to 800
                 client.publish("jackmitc/soundsensor", "1")
             print(light_value, 'light units,', sound_value, 'sound units')
     
@@ -66,8 +68,11 @@ if __name__ == '__main__':
             potentval = analogRead(potentiometer)
             if(potentval != 65535):
                 print(potentval)
-            if potentval < 50:
-                client.publish("jackmitc/rotaryencoder", "1")
+            
+                if potentval != prevpotentval : # checking for any changes in potentval
+                    prevpotenval = potentval
+                    client.publish("jackmitc/rotaryencoder", "1")
+            
             
             # print(potentiometer)
             # print(analogRead(potentiometer))
