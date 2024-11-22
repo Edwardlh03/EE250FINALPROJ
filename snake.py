@@ -7,6 +7,7 @@ import time
 
 snake_speed = 15
 inp = "soundsensor"
+changeflag = 1
 # Window size
 window_x = 720
 window_y = 480
