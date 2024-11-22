@@ -5,8 +5,8 @@ import random
 import paho.mqtt.client as mqtt
 import time
 
-snake_speed = 15
-input = "ultrasonicranger"
+snake_speed = 3
+input = "lightsensor"
 changeflag = 1
 # Window size
 window_x = 720
