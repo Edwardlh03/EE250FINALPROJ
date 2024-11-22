@@ -73,7 +73,7 @@ if __name__ == '__main__':
                 print(potentval, prevpotentval)
             
                 if abs(potentval - prevpotentval) > 10 : # checking for any changes in potentval
-                    prevpotenval = potentval
+                    prevpotentval = potentval
                     client.publish("jackmitc/rotaryencoder", "rotaryencoder")
             
             
