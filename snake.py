@@ -119,7 +119,7 @@ def custom_message(client, userdata, message):
 # Main Function
 if __name__ == '__main__':
   #this section is covered in publisher_and_subscriber_example.py
-    global input, changeflag
+
     client = mqtt.Client()
     client.on_message = custom_message
     client.on_connect = on_connect
