@@ -113,7 +113,7 @@ def on_connect(client, userdata, flags, rc):
 #Default message callback. Please use custom callbacks.
 def custom_message(client, userdata, message):
     input = str(message.payload, "utf-8")
-    print("1")
+    print(input)
     changeflag = 1
       
 # Main Function
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
         print(input)
       
-        if changeflag:
+        if changeflag == 1:
             if input == "ultrasonicranger":
               change_to = 'UP'
             elif input == "rotaryencoder":
