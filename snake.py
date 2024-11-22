@@ -69,7 +69,7 @@ def show_score(choice, color, font, size):
     game_window.blit(score_surface, score_rect)
 
 # game over function
-  def game_over():
+def game_over():
   
     # creating font object my_font
     my_font = pygame.font.SysFont('times new roman', 50)
@@ -117,7 +117,7 @@ def custom_message(client, userdata, message):
         print("VM: " + str(message.payload, "utf-8") + " cm")
       
 # Main Function
-  if __name__ == '__main__':
+if __name__ == '__main__':
   #this section is covered in publisher_and_subscriber_example.py
     client = mqtt.Client()
     client.on_message = custom_message
