@@ -15,6 +15,25 @@ adc_ref = 5
 
 full_angle = 300
 
+from pynput.keyboard import Controller
+import time
+
+# Initialize the keyboard controller
+keyboard = Controller()
+
+# Function to press the "m" key three times
+def press_m_three_times():
+    for _ in range(3):
+        keyboard.press('m')  # Press the "m" key
+        keyboard.release('m')  # Release the "m" key
+        time.sleep(0.1)  # Small delay between presses for realism
+
+if __name__ == "__main__":
+    print("Simulating 'm' key presses...")
+    press_m_three_times()
+    print("Done!")
+
+
 while True:
     try:
         [temp, hum] = dht(7,0)
