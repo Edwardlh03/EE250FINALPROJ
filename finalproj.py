@@ -51,7 +51,7 @@ if __name__ == '__main__':
             if dist != 65535:
                 print(dist)
             if dist < 20: #0-200
-                client.publish("jackmitc/ultrasonicranger", "1")
+                client.publish("jackmitc/ultrasonicranger", "ultrasonicranger")
             
             # print(ultrasonicRead(0), ultrasonicRead(1), ultrasonicRead(2), ultrasonicRead(3), ultrasonicRead(4), ultrasonicRead(5), ultrasonicRead(6), ultrasonicRead(7))
             # print(dist,'cm')
@@ -59,9 +59,9 @@ if __name__ == '__main__':
             light_value = analogRead(light_sensor)
             sound_value = analogRead(sound_sensor)
             if light_value < 200: #around 600 when facing up, a finger on top puts it at ~80
-                client.publish("jackmitc/lightsensor", "1")
+                client.publish("jackmitc/lightsensor", "lightsensor")
             if sound_value < 300: #ambient is around 70 or 100, tap goes up to 800
-                client.publish("jackmitc/soundsensor", "1")
+                client.publish("jackmitc/soundsensor", "soundsensor")
             print(light_value, 'light units,', sound_value, 'sound units')
     
             # time.sleep(1)
@@ -71,7 +71,7 @@ if __name__ == '__main__':
             
                 if potentval != prevpotentval : # checking for any changes in potentval
                     prevpotenval = potentval
-                    client.publish("jackmitc/rotaryencoder", "1")
+                    client.publish("jackmitc/rotaryencoder", "rotaryencoder")
             
             
             # print(potentiometer)
