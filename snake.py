@@ -130,7 +130,8 @@ if __name__ == '__main__':
       
         # handling key events
 
-        
+        print(input)
+      
         if changeflag:
             if input == "ultrasonicranger":
               change_to = 'UP'
