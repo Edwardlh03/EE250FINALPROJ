@@ -50,7 +50,7 @@ if __name__ == '__main__':
             # print("temp =", temp, "C\thumidity =", hum,"%")
             # # Read distance value from Ultrasonic
             _, _, _, _, dist, _, _, _ = ultrasonicRead(0), ultrasonicRead(1), ultrasonicRead(2), ultrasonicRead(3), ultrasonicRead(4), ultrasonicRead(5), ultrasonicRead(6), ultrasonicRead(7)
-            if dist != 65535:
+            # if dist != 65535:
                # print(dist)
             if dist < 20: #0-200
                 client.publish("jackmitc/ultrasonicranger", "ultrasonicranger")
