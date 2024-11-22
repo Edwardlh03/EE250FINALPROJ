@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 import time
 
 snake_speed = 15
-input = "soundsensor"
+input = "ultrasonic"
 changeflag = 1
 # Window size
 window_x = 720
