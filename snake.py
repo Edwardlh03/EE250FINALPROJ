@@ -113,6 +113,7 @@ def on_connect(client, userdata, flags, rc):
 #Default message callback. Please use custom callbacks.
 def custom_message(client, userdata, message):
     input = str(message.payload, "utf-8")
+    print("1")
     changeflag = 1
       
 # Main Function
