@@ -70,7 +70,7 @@ if __name__ == '__main__':
             potentval = analogRead(potentiometer)
             
             if(potentval != 65535):
-                print(potentval)
+                print(potentval, prevpotentval)
             
                 if abs(potentval - prevpotentval) > 10 : # checking for any changes in potentval
                     prevpotenval = potentval
