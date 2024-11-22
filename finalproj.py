@@ -66,7 +66,7 @@ if __name__ == '__main__':
             potentval = analogRead(potentiometer)
             if(potentval != 65535):
                 print(potentval)
-             if potentval < 50:
+            if potentval < 50:
                 client.publish("jackmitc/rotaryencoder", "1")
             
             # print(potentiometer)
