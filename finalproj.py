@@ -62,7 +62,7 @@ if __name__ == '__main__':
             sound_value = analogRead(sound_sensor)
             if light_value < 200: #around 600 when facing up, a finger on top puts it at ~80
                 client.publish("jackmitc/lightsensor", "lightsensor")
-            if sound_value < 300: #ambient is around 70 or 100, tap goes up to 800
+            if sound_value > 300: #ambient is around 70 or 100, tap goes up to 800
                 client.publish("jackmitc/soundsensor", "soundsensor")
            # print(light_value, 'light units,', sound_value, 'sound units')
     
