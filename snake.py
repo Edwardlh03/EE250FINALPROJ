@@ -11,6 +11,7 @@ changeflag = 1
 # Window size
 window_x = 720
 window_y = 480
+connected_flag = 0
 
 # defining colors
 black = pygame.Color(0, 0, 0)
@@ -23,7 +24,7 @@ blue = pygame.Color(0, 0, 255)
 pygame.init()
 
 # Initialise game window
-pygame.display.set_caption('GeeksforGeeks Snakes')
+pygame.display.set_caption('Snake')
 game_window = pygame.display.set_mode((window_x, window_y))
 
 # FPS (frames per second) controller
@@ -101,7 +102,10 @@ def game_over():
     quit()
 
 def on_connect(client, userdata, flags, rc):
+    global connected_flag
+    connected_flag = 1
     print("Connected to server (i.e., broker) with result code "+str(rc))
+
 
     #subscribe to the topics here
     client.subscribe("jackmitc/ultrasonicranger", 2)
@@ -125,6 +129,9 @@ if __name__ == '__main__':
     client.on_connect = on_connect
     client.connect(host="broker.hivemq.com", port=1883, keepalive=60)
     client.loop_start()
+    while connected_flag == 0:
+        print("waiting to connect", connected_flag)
+        time.sleep(0.1)
 
     while True:
       
