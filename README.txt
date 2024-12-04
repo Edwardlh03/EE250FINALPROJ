@@ -1,12 +1,12 @@
-# EE250FINALPROJ
-Eddie H and Jack Ms final proj folder
+EE250FINALPROJ
+Eddie H and Jack M
 
-libraries:
+External libraries:
 grovepi
 paho.mqtt.client
 pygame
 
-instructions:
-ON RPI run finalproj.py
-ON VM run snake.py
-Play game
+Execution instructions:
+ON RPI: python3 finalproj.py
+ON VM: python3 snake.py
+Game running!
